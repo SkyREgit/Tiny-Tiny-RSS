@@ -421,7 +421,6 @@ function toggleSelectRow2(sender, row, is_cdm) {
 			});
 		}
 	}
-
 	if (typeof updateSelectedPrompt != undefined)
 		updateSelectedPrompt();
 }
