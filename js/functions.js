@@ -380,7 +380,11 @@ function toggleSelectListRow2(sender) {
 
 /* this is for dijit Checkbox */
 function toggleSelectRow2(sender, row, is_cdm) {
-
+	var shift_key;
+	if (typeof row == "object") {
+		shift_key = row[0].shiftKey;
+		row = false;
+	}
 	if (!row)
 		if (!is_cdm)
 			row = sender.domNode.parentNode.parentNode;
@@ -391,6 +395,32 @@ function toggleSelectRow2(sender, row, is_cdm) {
 		row.addClassName('Selected');
 	else
 		row.removeClassName('Selected');
+
+        if (getSelectedArticleIds2().size() == 2 && shift_key) {
+		var cb_ids = [];
+		var rrow;
+		$$("#headlines-frame > div[id*=RROW][class*=Selected]").each(
+			function(child) {
+				if (!is_cdm)
+					cb_ids.push(child.firstChild.firstChild.firstChild.id.replace("dijit_form_CheckBox_", ""));
+				else
+					cb_ids.push(child.firstChild.firstChild.firstChild.firstChild.id.replace("dijit_form_CheckBox_", ""));
+		});
+		for (cb_id=++cb_ids[0]; cb_id < cb_ids[1]; cb_id++) {
+			$$("#headlines-frame #dijit_form_CheckBox_"+cb_id).each(
+				function(child) {
+					if (!is_cdm)
+						rrow=child.parentNode.parentNode.parentNode;
+					else
+						rrow=child.parentNode.parentNode.parentNode.parentNode;
+					var cb = dijit.getEnclosingWidget(
+						rrow.getElementsByClassName("rchk")[0]);
+
+					rrow.addClassName("Selected");
+					if (cb) cb.attr("checked", true);
+			});
+		}
+	}
 
 	if (typeof updateSelectedPrompt != undefined)
 		updateSelectedPrompt();
