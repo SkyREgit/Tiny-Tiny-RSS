@@ -455,7 +455,7 @@ class Feeds extends Handler_Protected {
 					$reply['content'] .= "<div class='hlLeft'>";
 
 					$reply['content'] .= "<input dojoType=\"dijit.form.CheckBox\"
-							type=\"checkbox\" onclick=\"toggleSelectRow2(this)\"
+							type=\"checkbox\" onclick=\"toggleSelectRow2(this, arguments)\"
 							class='rchk'>";
 
 					$reply['content'] .= "$marked_pic";
@@ -561,7 +561,7 @@ class Feeds extends Handler_Protected {
 					$reply['content'] .= "<div style=\"vertical-align : middle\">";
 
 					$reply['content'] .= "<input dojoType=\"dijit.form.CheckBox\"
-							type=\"checkbox\" onclick=\"toggleSelectRow2(this, false, true)\"
+							type=\"checkbox\" onclick=\"toggleSelectRow2(this, arguments, true)\"
 							class='rchk'>";
 
 					$reply['content'] .= "$marked_pic";
